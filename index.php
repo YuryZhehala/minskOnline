@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once('templates/top.php');
 if(isset($_GET['url'])) {
     $url=$_GET['url'];

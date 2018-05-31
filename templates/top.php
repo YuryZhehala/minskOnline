@@ -39,6 +39,16 @@ require_once('config/config.php');
   <a href = "logout.php">
   Выход
   </a>
+  <a href = "cabinet.php">
+  Кабинет
+  </a>
+
+  
+  
+  
+  
+  
+  
 
  <?php
  } else {
