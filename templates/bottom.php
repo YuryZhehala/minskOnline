@@ -1,5 +1,6 @@
 </div>
 
+<?php echo $someContent;?>
   <div class="col-md-2">
     <div>
       <!--pogoda.by-->
@@ -41,21 +42,7 @@
   <link type="text/css" rel="stylesheet" href="/media/css/style.css">
   <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 
-  <div id="feedback">
-    <div>Заказать обратный звонок</div>
-    <ul>
-      <li>
-        <input name="fname" placeholder="Имя" type="text" />
-      </li>
-      <li>
-        <input name="phone" placeholder="+7 (901) 234-56-78" type="text" />
-      </li>
-      <li class="last">
-        <a href="#">Отправить</a>
-      </li>
-      
-    </ul>
-  </div>
+  
 
 
   <br style="clear: both">
@@ -69,17 +56,35 @@ while ($arr=mysqli_fetch_array($adr)) {
   //echo $arr['name'].'&nbsp;';
   echo "<a href = 'index.php?url=".$arr['url']."'>".$arr['name']."</a>&nbsp;";
 }
+echo "<br>";
+$query2="SELECT*FROM categories WHERE showhide='show'";
+    $adr2 = mysqli_query($dbconn,$query2);
+    if (!$adr2) {
+      exit('error');
+    }
+
+
+  while ($arr2=mysqli_fetch_array($adr2)) {
+    //echo $arr['name'].'&nbsp;';
+    echo "<a href = 'index.php?url=".$arr2['url']."'>".$arr2['name']."</a>&nbsp;";
+  
+}
 ?>
 
+    <a href="mailto:yurizhegalo@mail.ru">
+      yurizhegalo@mail.ru
+    </a>   
 
-
-
-    <a href="mailto:milehalhevich@su.ru">
-      milehalhevich@su.ru
-    </a>
   </div>
-
   
+<?php
+if (isset($scripts[0])) {
+  foreach ($scripts as $one) {
+    echo "<script src = '$one'>";
+    echo "</script>";
+  }
+}
+?>
 </body>
 
 </html>

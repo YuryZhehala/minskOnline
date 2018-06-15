@@ -1,4 +1,7 @@
 <?php
+$scripts = [];
+$scripts[]= "/media/ckeditor/ckeditor.js";
+
 require_once('templates/top.php');
 
 
@@ -10,6 +13,7 @@ if ($_SESSION['id']) {
 if ($_POST) {
 $name = $_POST['name'];
 $body = $_POST['body'];
+$catalog_id = $_POST['catalog_id'];
 $smallbody = $_POST['smallbody'];
 	if (! empty($errors)){
 		foreach($errors as $arr){
@@ -32,7 +36,7 @@ $smallbody = $_POST['smallbody'];
 		echo "Ошибка загрузки файла";
 		}
 		$query="INSERT INTO notes VALUES(
-		NULL, '$name', '$body', '$smallbody', '', '0', '$filename', '', 0, 'Y', NOW(), ''
+		NULL, '$name', '$body', '$smallbody', '', '$catalog_id', '$filename', '', 0, 'Y', NOW(), ''
 		)";
 $adr = mysqli_query($dbconn, $query);
         if (!$adr) {
@@ -59,17 +63,28 @@ $adr = mysqli_query($dbconn, $query);
     <input type="text" class="form-control" id="smallbody" name="smallbody" placeholder="small body">
   </div>
   <div class="form-group">
-    <label for="body">описание</label>
-    <textarea class="form-control" name="body" rows="3"></textarea>
+    <label for="body">Описание</label>
+    <textarea class="form-control ckeditor" name="body" rows="3"></textarea>
   </div>
   <div class="form-group">
     <label for="catalog_id">Каталог</label>
-   <select class="form-control">
-  <option value="1">1</option>
-  <option>2</option>
-  <option>3</option>
-  <option>4</option>
-  <option>5</option>
+   <select class="form-control" name='catalog_id'>
+     <? $query = "SELECT * FROM categories WHERE showhide = 'show'";
+     $adr = mysqli_query($dbconn,$query);
+     if (!$adr) {
+       exit('error');
+     }?>
+ <option value = "">Выберите параметр</option>   
+ <? while ($arr=mysqli_fetch_array($adr)) {
+   ?>
+ 
+  <option value="<?=$arr['id'];?>">
+  <?=$arr['name'];?>
+  <?php
+}
+?>
+
+</option>
 </select>
   </div>
   <div class="form-group">
@@ -82,12 +97,36 @@ $adr = mysqli_query($dbconn, $query);
       <input type="checkbox"> Check me out
     </label>
   </div>
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button type="submit" class="btn btn-default" style="margin-bottom:100px;">Submit</button>
 </form>
 <?php
+$query = "SELECT * FROM notes ";
+$adr = mysqli_query($dbconn,$query);
+    if (!$adr) {
+      exit($query);
+    }
+    while ($product=mysqli_fetch_array($adr)) {
+      ?>
+ <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#"><img class="card-img-top" src="<?=(isset($product['picture'])?"media/uploads/".$product['picture']:'/media/no_photo.jpeg') ?>" alt=""></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="/delete.php?id=<?=$product['id'];?>">&times;</a>
+                  </h4>
+                  <h5>$<?=$product['price'];?></h5>
+                  
+                </div>
+
+              </div>
+            </div>
+      <?
+    }
 } else {
 	echo "Ошибка входа";
 }
-
-
 require_once('templates/bottom.php');
+?>
+
+
+

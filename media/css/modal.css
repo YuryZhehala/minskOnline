@@ -1,8 +1,8 @@
 .main {
     background: #aaa url(../img/bg1.jpg) no-repeat;
     width: 800px;
-    height: 600px;
-    margin: 50px auto;
+    height: 430px;
+    margin: 30px auto;
 }
 .panel {
     background-color: #444;

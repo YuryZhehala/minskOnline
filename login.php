@@ -30,7 +30,7 @@ if(!$user['id']) {
     <body>
         <header>
             <h2>Добро пожаловать</h2>
-            <a href="http://www.script-tutorials.com/css3-modal-popups/" class="stuts">Назад на <span>Главную</span> страницу</a>
+            <a href='http://minsk.online/' class="stuts">Назад на <span>Главную</span> страницу</a>
         </header>
 
         <!-- panel with buttons -->
